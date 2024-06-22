@@ -1,5 +1,5 @@
 import puppeteer, { Browser, Page } from 'puppeteer'; // or import puppeteer from 'puppeteer-core';
-import { getOuterHTML } from './utils';
+import { getClickables, getInputs, getOuterHTML } from './utils';
 
 // chrome path: /Users/adityapawar_1/.cache/puppeteer/chrome/mac_arm-126.0.6478.55/chrome-mac-arm64/Google\ Chrome\ for\ Testing.app/Contents/MacOS/Google\ Chrome\ for\ Testing
 const main = async () => {
@@ -22,20 +22,11 @@ const main = async () => {
     page = pages[0];
   }
 
-  await page.goto('https://developer.chrome.com/');
-  await page.setViewport({ width: 1080, height: 1024 });
+  //await page.goto('https://developer.chrome.com/');
+  //await page.setViewport({ width: 1080, height: 1024 });
 
-  const inputsSelector = "textarea, input"
-  const clickableSelector = "a, button, label"
-
-  const inputs = await page.$$(inputsSelector);
-  const inputOuterHTML = await getOuterHTML(inputs);
-
-  const buttons = await page.$$(clickableSelector);
-  const buttonOuterHTML = await getOuterHTML(buttons);
-
-  console.log(JSON.stringify(inputOuterHTML))
-  console.log(JSON.stringify(buttonOuterHTML))
+  console.log(JSON.stringify(await getClickables(page)))
+  console.log(JSON.stringify(await getInputs(page)))
 
   await browser.disconnect();
 }
