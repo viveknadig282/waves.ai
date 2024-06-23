@@ -1,9 +1,7 @@
-import type { PlasmoMessaging } from "@plasmohq/messaging"
-import { get, post } from "~background/route";
 import { ACTIONS, PUPPETEER_ROUTES} from "~constants";
 
 const getChildRoute = (action: string, variables: Record<any, any>, input: any) => {
-    const a = input[0]["args"]!; // args
+    const a = input.args; // args
 
     switch (action) {
         case "ClickElementAction":
@@ -28,7 +26,7 @@ const getChildRoute = (action: string, variables: Record<any, any>, input: any) 
             if (a.close_an_existing_tab) {
                 return "/close/current";
             } else if (a.create_new_tab) {
-                variables["new_tab_url"] = a.new_tab_url;
+                variables["url"] = a.new_tab_url;
                 return "/new";
             } else if (a.focus_an_existing_tab) {
                 return "/focus";
@@ -39,7 +37,7 @@ const getChildRoute = (action: string, variables: Record<any, any>, input: any) 
     }
 }
 
-const getRequest = (action: string, input: any) => {
+export const getRequest = (action: string, input: any) => {
     const parent: string = ACTIONS[action]; // parent route
     let variables = {};
 
@@ -51,15 +49,3 @@ const getRequest = (action: string, input: any) => {
         body: variables
     }
 }
-
-const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
-    const request = getRequest(req.name, req); // url, type, and body of the request
-    const body = JSON.stringify(request.body);
-    if (request.type == "POST") {
-        post(request.url, body)
-    } else {
-        get(request.url, body)
-    }
-}
- 
-export default handler
