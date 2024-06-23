@@ -150,6 +150,13 @@ def provide_context(action: NeedsContext, ctx: str):
     elif action.needs_tab_context:
         return f"Ordered tab url list from the browser: {ctx}. Respond to the following natural language prompt: {prompt}"
 
+def provide_manual_context(action: str, ctx: str):
+    if "click" in action:
+        return f"Html of the buttons/links from the page: {ctx}. Respond to the following natural language prompt: {prompt}"
+    elif "type" in action or "input" in action:
+        return f"Html of the text inputs from the page: {ctx}. Respond to the following natural language prompt: {prompt}"
+    elif "tab" in action:
+        return f"Ordered tab url list from the browser: {ctx}. Respond to the following natural language prompt: {prompt}"
 
 model = ChatOpenAI(model="gpt-4")
 without_context_tools = [
@@ -186,8 +193,13 @@ def do_no_context_action(input: str):
 
 def do_context_action(input: str, needs_context: NeedsContext, ctx: str):
     print("Agent needs context")
-    context_prompt = provide_context(ctx)
-    response = with_context_agent.invoke({"input": input})
+    context_prompt = provide_context(NeedsContext, ctx)
+    response = with_context_agent.invoke({"input": context_prompt})
+
+def do_context_action_manual(input: str, action: str, ctx: str):
+    print("Agent needs context")
+    context_prompt = provide_manual_context(action, ctx)
+    response = with_context_agent.invoke({"input": context_prompt})
 
 
 # do_browser_action("")
@@ -202,6 +214,30 @@ app = FastAPI(
 )
 
 active_connections_set = set()
+
+
+class NoContextPrompt(BaseModel):
+    prompt: str
+
+class ContextPrompt(BaseModel):
+    prompt: str
+    context: str
+    action: str
+
+@app.get("/no_context")
+async def no_context_endpoint(prompt: NoContextPrompt):
+    inp = prompt.prompt
+    response = do_no_context_action(inp)
+    return response
+
+@app.get("/context")
+async def context_endpoint(prompt: ContextPrompt):
+    inp = prompt.prompt
+    ctx = prompt.ctx
+    act = prompt.action
+
+    response = do_context_action_manual(inp, action, ctx)
+    return response
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
