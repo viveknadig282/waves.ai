@@ -1,5 +1,5 @@
 import json
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket
 from fastapi.responses import RedirectResponse
 from langserve import add_routes
 from langchain_openai import ChatOpenAI
@@ -195,24 +195,18 @@ def do_context_action(input: str, needs_context: NeedsContext, ctx: str):
 # woc_agent_executor = AgentExecutor(agent=without_context_agent, tools=without_context_tools)
 # wc_agent_executor = AgentExecutor(agent=without_context_agent, tools=without_context_tools)
 
-class Input(BaseModel):
-    input: str
-
-
-class Output(BaseModel):
-    output: Any
-
-
 app = FastAPI(
     title="LangChain Server",
     version="1.0",
     description="Spin up a simple api server using LangChain's Runnable interfaces",
 )
 
+active_connections_set = set()
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
+    active_connections_set.add(websocket)
     while True:
         data = await websocket.receive_text()
         prompt = json.loads(data)['prompt']
@@ -226,9 +220,6 @@ async def websocket_endpoint(websocket: WebSocket):
             response = do_context_action(prompt, response, context)
         else:
             websocket.close()
-
-
-
 
 @app.on_event("shutdown")
 async def shutdown():
