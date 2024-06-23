@@ -30,7 +30,7 @@ recognition.onresult = (event: SpeechRecognitionEvent) => {
       body: {
         transcript: transcript
       }
-    }) //take result from here and feed it into requests in ping
+    })
     console.log('transcript: ', transcript);
 };
 

@@ -6,7 +6,8 @@ import inputs from './routes/inputs'
 import clickables from './routes/clickables'
 import scroll from './routes/scroll'
 
-const browserURL = 'http://127.0.0.1:21222';
+// const browserURL = 'http://127.0.0.1:21222';
+const browserURL = "ws://127.0.0.1:21222/devtools/browser/ff5208dc-1090-4e99-862a-cdcfc15c06f8"
 export let browser: Browser;
 const fastify = Fastify({
   logger: true
@@ -19,7 +20,7 @@ fastify.register(scroll);
 
 const main = async () => {
   try {
-    browser = await puppeteer.connect({ browserURL })
+    browser = await puppeteer.connect({ browserWSEndpoint: browserURL })
     console.log("Connected to existing browser.");
   } catch (err) {
     //console.log(err);
