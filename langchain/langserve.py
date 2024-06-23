@@ -236,7 +236,7 @@ async def context_endpoint(prompt: ContextPrompt):
     ctx = prompt.ctx
     act = prompt.action
 
-    response = do_context_action_manual(inp, action, ctx)
+    response = do_context_action_manual(inp, act, ctx)
     return response
 
 @app.websocket("/ws")
