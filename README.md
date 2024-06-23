@@ -23,7 +23,7 @@ For us, the UC Berkeley AI Hackathon was the perfect opportunity to take a bold 
 - We created a post request apis with fastAPI to send transcripts to our llm agents hosted in AWS
 - We tuned our llm agents to classify a command as a browser command and then use appropriate tools and the page source html. They used these to customize executable scripts for the browser
 - Using puppeteer we would execute these js functions tuned from the llm models to get the desired browser result from the user
-![Text Stack Flow Chart](https://github.com/viveknadig282/waves.ai/blob/master/assets/waves-example.png?raw=true)
+![Text Stack Flow Chart](https://github.com/viveknadig282/waves.ai/blob/master/assets/flow-diagram.png?raw=true)
 
 ## Challenges we ran into
 - We faced challenges initially tuning the models in Intel AI due to limited training data and the private ip
