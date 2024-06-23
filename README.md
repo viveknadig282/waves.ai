@@ -42,3 +42,13 @@ For us, the UC Berkeley AI Hackathon was the perfect opportunity to take a bold 
 - We also want to look into creating our own browser in addition to the extension gain greater control over js functions, variables, and html components in the DOM.
 - We would like to expand our speech recognition to other languages to broaden the scope of who Waves AI can impact
 
+## How to run locally
+Browser Control Webserver
+- `pnpm i` in the `backend` directory.
+- run `npx tsx server.ts`
+Chrome Extension
+- `pnpm i` in the `wave` directory
+- run `pnpm run dev`
+LangServe
+- Create a .env file with your openai api key.
+- Run `uvicorn --port 8000 server:app` in the `langchain` directory.
