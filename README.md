@@ -12,18 +12,33 @@ Waves AI is particularly beneficial for people with mobility impairments, such a
 For us, the UC Berkeley AI Hackathon was the perfect opportunity to take a bold step and pursue our ambitious vision!
 
 ## What it does
-- Can mute
+- It uses speech recognition and llm agents finetuned with langchain to convert a users requests through voice to many various browser commands
+- It can open tabs, close tabs, scroll and open a tab to any webpage with phone only
+- It can also open links and find specific html components in a page and select or input text in them based off a users command (ex. signing in, selecting a youtube video, etc.)
+- It persists a muted or unmuted state across tabs
+- It has a popup and a semi glassmorphic component that embeds itself in every page
 
 ## How we built it
-
+- We used Plasmo to create a chrome extension that would use WebSpeechApi to convert speech to text
+- We created a post request apis with fastAPI to send transcripts to our llm agents hosted in AWS
+- We tuned our llm agents to classify a command as a browser command and then use appropriate tools and the page source html. They used these to customize executable scripts for the browser
+- Using puppeteer we would execute these js functions tuned from the llm models to get the desired browser result from the user
+![Text Stack Flow Chart](https://github.com/viveknadig282/waves.ai/blob/master/assets/flow-diagram.png?raw=true)
 
 ## Challenges we ran into
-- 
+- We faced challenges initially tuning the models in Intel AI due to limited training data and the private ip
+- It was our first time using plasmo and creating an extension so we faced a lot of difficulty in getting Speech Recognition to work
+
 
 ## Accomplishments that we're proud of
-- We tried to integrate almost every tool at the hackathon!
-- We have a lot of things working, many in real-time, and some components are almost functional. We tried our VERY best but sometimes things just do not work in the constrained hackathon time.
+- We tried to integrate a lot of the tools at the hackathon!
+- We have a lot of things working, many in real-time, and some components are almost functional. 
+- We were able to include a large amount of functionality and modern ui before the end of the hackathon, while a little buggy.
+- We used plasmo and langchain for the first time and we were able to get them working pretty reliably 
 
 ## What's next for Waves AI
-- 
+- We want to include more functionality by including more possible browser actions to allow users to fully surf the internet effortlessly without hands
+- We envision learning more from marginalized groups about the difficulty with browsing the internet with disabilities to help guide our priorities, possibly through focus groups and research. 
+- We also want to look into creating our own browser in addition to the extension gain greater control over js functions, variables, and html components in the DOM.
+- We would like to expand our speech recognition to other languages to broaden the scope of who Waves AI can impact
 
