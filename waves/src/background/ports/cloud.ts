@@ -17,17 +17,15 @@ const handler: PlasmoMessaging.PortHandler = async (req, res) => {
   if (data.name == "NeedsContext" || data.name == "RandomNoise") {
     return;
   }
-  console.log(data);
-
+  
   const puppeteerReq = getRequest(data.name, data); // url, type, and body of the request
   const puppeteerParam = JSON.stringify(puppeteerReq.body);
-  console.log(puppeteerReq);
-  console.log(puppeteerParam);
+  const url = `http://localhost:3000${puppeteerReq.url}`;
 
   if (puppeteerReq.type == "POST") {
-      post(puppeteerReq.url, puppeteerParam);
+      post(url, puppeteerParam);
   } else {
-      get(puppeteerReq.url, puppeteerParam);
+      get(url, puppeteerParam);
   }
  
   res.send({
