@@ -5,6 +5,7 @@ from langserve import add_routes
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from pathlib import Path
+from pydantic import BaseModel as BM
 
 load_dotenv()
 
@@ -216,27 +217,27 @@ app = FastAPI(
 active_connections_set = set()
 
 
-class NoContextPrompt(BaseModel):
+class NoContextPrompt(BM):
     prompt: str
 
-class ContextPrompt(BaseModel):
+class ContextPrompt(BM):
     prompt: str
     context: str
     action: str
 
-@app.get("/no_context")
+@app.post("/no_context")
 async def no_context_endpoint(prompt: NoContextPrompt):
     inp = prompt.prompt
     response = do_no_context_action(inp)
     return response
 
-@app.get("/context")
+@app.post("/context")
 async def context_endpoint(prompt: ContextPrompt):
     inp = prompt.prompt
     ctx = prompt.ctx
     act = prompt.action
 
-    response = do_context_action_manual(inp, action, ctx)
+    response = do_context_action_manual(inp, act, ctx)
     return response
 
 @app.websocket("/ws")
