@@ -3,7 +3,7 @@ import { getActivePage } from "../utils/browser";
 import { getInputs, getNthInput } from "../utils/html";
 
 export default async function routes(fastify, options) {
-  fastify.get('/input', async (request, reply) => {
+  fastify.get('/input/all', async (request, reply) => {
     const page = await getActivePage(browser);
     return getInputs(page);
   })

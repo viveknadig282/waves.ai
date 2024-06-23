@@ -14,7 +14,7 @@ export const getStyle = () => {
 }
 
 const storage = new Storage();
-const puppPort = getPort("pupp" as PortName);
+const cloudPort = getPort("cloud" as PortName);
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -26,11 +26,11 @@ recognition.maxAlternatives = 1;
 
 recognition.onresult = (event: SpeechRecognitionEvent) => {
     const transcript: string = event.results[0][0].transcript;
-    puppPort.postMessage({
+    cloudPort.postMessage({
       body: {
         transcript: transcript
       }
-    })
+    }) //take result from here and feed it into requests in ping
     console.log('transcript: ', transcript);
 };
 

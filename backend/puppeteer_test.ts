@@ -1,5 +1,5 @@
 import puppeteer, { Browser, Page } from 'puppeteer'; // or import puppeteer from 'puppeteer-core';
-import { getClickables, getInputs, getOuterHTML } from './utils';
+import { getClickables, getInputs } from './utils/html';
 
 // chrome path: /Users/adityapawar_1/.cache/puppeteer/chrome/mac_arm-126.0.6478.55/chrome-mac-arm64/Google\ Chrome\ for\ Testing.app/Contents/MacOS/Google\ Chrome\ for\ Testing
 const main = async () => {

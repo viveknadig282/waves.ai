@@ -16,13 +16,16 @@ const App = () => {
   getMuted();
 
   return (
-    <div className="p-3 w-40 rounded-sm border-none shadow-lg hover:shadow-md bg-white text-black">
-      <h1 className="text-xl font-semibold">
+    <div className="p-3 w-40 rounded-lg border-none shadow-lg hover:shadow-md backdrop-blur-md text-black">
+      <h1 className="text-xl font-semibold mt-1">
         Waves.ai
         <SpeechButton muted={muted} setMuted={setMuted}/>
       </h1> 
-      <h2 className="text-sm inline whitespace-nowrap">
-        is {(muted) ? "muted." : "listening..."}
+      <h2 className="text-base inline whitespace-nowrap font-medium">
+        is {" "} 
+        <span className={(muted) && "text-red-500"}>
+          {(muted) ? "muted." : "listening..."}
+        </span>
       </h2>
     </div>
   )

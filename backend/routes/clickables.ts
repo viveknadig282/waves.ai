@@ -3,7 +3,7 @@ import { browser } from "../server";
 import { getActivePage } from "../utils/browser";
 
 export default async function routes(fastify, options) {
-  fastify.get('/click', async (request, reply) => {
+  fastify.get('/click/all', async (request, reply) => {
     const page = await getActivePage(browser);
     return getClickables(page);
   })

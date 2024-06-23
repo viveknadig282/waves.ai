@@ -12,6 +12,7 @@
   "dependencies": {
     "fastify": "^4.28.0",
     "puppeteer": "^22.11.0",
-    "puppeteer-core": "^22.11.0"
+    "puppeteer-core": "^22.11.0",
+    "tsx": "^4.15.7"
   }
 }

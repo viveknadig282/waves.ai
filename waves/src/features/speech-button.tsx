@@ -18,12 +18,12 @@ const SpeechButton = ({muted, setMuted}: SpeechButtonProps) => {
     return (
         <button 
             className={`
-                p-1 ml-2 rounded-full
+                p-2 ml-3 rounded-full hover:shadow-lg active:shadow-sm
                 ${(muted) ? "bg-red-500" : "bg-gray-500"}`} 
             id="speechButton"
             onClick={() => handleClick()}
         >
-            {(muted) ? <BsMicMute color="white"/> : <BsMic color="white"/> }
+            {(muted) ? <BsMicMute strokeWidth={0.6} size={13} color="white"/> : <BsMic strokeWidth={0.6} size={13} color="white"/> }
         </button>
     );
 
