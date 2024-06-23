@@ -1,6 +1,8 @@
 import { browser } from "../server";
 import { getActivePage } from "../utils/browser";
 
+const defaultUrl = "https://www.google.com/"
+
 export default async function routes(fastify, options) {
   fastify.post('/tab/new', async (request, reply) => {
     const page = await browser.newPage();
@@ -8,6 +10,8 @@ export default async function routes(fastify, options) {
     if (request.body['url']) {
       const url = request.body.url;
       await page.goto(url);
+    } else {
+      await page.goto(defaultUrl);
     }
   })
 
