@@ -22,7 +22,7 @@ const main = async () => {
     browser = await puppeteer.connect({ browserURL })
     console.log("Connected to existing browser.");
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     console.log("Can't connect to existing browser, creating a new one.");
     browser = await puppeteer.launch({ headless: false });
   }

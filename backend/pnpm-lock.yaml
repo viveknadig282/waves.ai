@@ -17,6 +17,9 @@ importers:
       puppeteer-core:
         specifier: ^22.11.0
         version: 22.11.0
+      string-similarity-js:
+        specifier: ^2.1.4
+        version: 2.1.4
       tsx:
         specifier: ^4.15.7
         version: 4.15.7
@@ -733,6 +736,9 @@ packages:
 
   streamx@2.18.0:
     resolution: {integrity: sha512-LLUC1TWdjVdn1weXGcSxyTR3T4+acB6tVGXT95y0nGbca4t4o/ng1wKAGTljm9VicuCVLvRlqFYXYy5GwgM7sQ==}
+
+  string-similarity-js@2.1.4:
+    resolution: {integrity: sha512-uApODZNjCHGYROzDSAdCmAHf60L/pMDHnP/yk6TAbvGg7JSPZlSto/ceCI7hZEqzc53/juU2aOJFkM2yUVTMTA==}
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -1540,6 +1546,8 @@ snapshots:
       text-decoder: 1.1.0
     optionalDependencies:
       bare-events: 2.4.2
+
+  string-similarity-js@2.1.4: {}
 
   string-width@4.2.3:
     dependencies:

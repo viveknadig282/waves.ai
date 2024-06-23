@@ -11,7 +11,6 @@ export const getInputs = async (page: Page) => {
 
 export const getNthInput = async (page: Page, n: number) => {
   const inputs = await page.$$(inputsSelector);
-  console.log(inputs);
   return inputs[n];
 }
 
@@ -19,7 +18,6 @@ export const getClickables = async (page: Page) => {
   const buttons = await page.$$(clickableSelector);
   const buttonOuterHTML = await getOuterHTML(buttons);
 
-  const linkSelector = "a"
   const links = await page.$$(linkSelector);
   const linkText = await getText(links);
   const linkHtml = linkText.map(link => `<a>${link}</a>`)
@@ -28,15 +26,23 @@ export const getClickables = async (page: Page) => {
 }
 
 export const getNthClickable = async (page: Page, n: number) => {
+  let i = 0
   const buttons = await page.$$(clickableSelector);
-  console.log(buttons);
-  if (n < buttons.length) {
-    return buttons[n];
+
+  for (const button of buttons) {
+    if (i == n) {
+      return button;
+    }
+    i++;
   }
 
   const links = await page.$$(linkSelector);
-  console.log(links);
-  return links[n - buttons.length];
+  for (const link of links) {
+    if (i == n) {
+      return link;
+    }
+    i++;
+  }
 }
 
 const getOuterHTML = async (elements: ElementHandle<HTMLElement>[]): Promise<string[]> => {

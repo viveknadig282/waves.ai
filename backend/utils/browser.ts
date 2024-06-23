@@ -15,7 +15,6 @@ export async function getActivePage(browser: Browser, timeout = 200) {
     }
 
     if (active.length == 1) {
-      console.log(active[0].url());
       return active[0];
     }
   }

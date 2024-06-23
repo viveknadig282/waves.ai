@@ -13,6 +13,7 @@
     "fastify": "^4.28.0",
     "puppeteer": "^22.11.0",
     "puppeteer-core": "^22.11.0",
+    "string-similarity-js": "^2.1.4",
     "tsx": "^4.15.7"
   }
 }
