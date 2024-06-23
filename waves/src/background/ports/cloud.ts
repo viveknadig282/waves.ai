@@ -19,11 +19,10 @@ const handler: PlasmoMessaging.PortHandler = async (req, res) => {
     return;
   }
 
-  console.log(data.name);
   if (data.name == "NeedsContext") {
-    const puppeteerReq = getRequest(data.name, data);
-    console.log(JSON.stringify(puppeteerReq));
+    const puppeteerReq = getRequest(data.name, data); // route, method, type
     const url = `http://localhost:3000${puppeteerReq.url}`;
+    console.log(JSON.stringify(puppeteerReq));
 
     let action: string;
     if (data.needs_clickables_context) {
@@ -55,16 +54,15 @@ const handler: PlasmoMessaging.PortHandler = async (req, res) => {
   const puppeteerReq = getRequest(data.name, data); // url, type, and body of the request
   const puppeteerParam = JSON.stringify(puppeteerReq.body);
   const url = `http://localhost:3000${puppeteerReq.url}`;
+  console.log(puppeteerReq.type);
 
   if (puppeteerReq.type == "POST") {
     post(url, puppeteerParam);
+    return;
   } else {
     get(url, puppeteerParam);
+    return
   }
-
-  res.send({
-    response
-  })
 }
 
 export default handler

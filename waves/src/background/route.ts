@@ -30,7 +30,7 @@ export async function post(url: string, body: string) {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: body,
+      body: (body),
     });
     const data: unknown = await response.json();
     console.log(`Posting ${url} with body ${body}, response ${JSON.stringify(data)}`);
