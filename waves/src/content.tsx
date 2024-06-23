@@ -2,6 +2,8 @@ import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig } from "plasmo"
 import App from "~features/app"
 import { Storage } from "@plasmohq/storage"
+import { getPort } from "@plasmohq/messaging/port"
+import type { PortName } from "@plasmohq/messaging"
 
 export const config: PlasmoCSConfig = {}
 
@@ -12,6 +14,7 @@ export const getStyle = () => {
 }
 
 const storage = new Storage();
+const puppPort = getPort("pupp" as PortName);
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -22,8 +25,13 @@ recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
 recognition.onresult = (event: SpeechRecognitionEvent) => {
-    const transcript = event.results[0][0].transcript;
-    console.log('Transcript:', transcript);
+    const transcript: string = event.results[0][0].transcript;
+    puppPort.postMessage({
+      body: {
+        transcript: transcript
+      }
+    })
+    console.log('transcript: ', transcript);
 };
 
 recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
