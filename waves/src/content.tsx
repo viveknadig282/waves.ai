@@ -5,7 +5,6 @@ import { Storage } from "@plasmohq/storage"
 import { getPort } from "@plasmohq/messaging/port"
 import type { PortName } from "@plasmohq/messaging"
 import { useEffect } from "react"
-import { log } from "console"
 
 export const config: PlasmoCSConfig = {}
 
@@ -26,19 +25,13 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
-document.addEventListener("visibilitychange", async (event) => {
-  console.log("SROTNOERSINOITRSN");
-  event.preventDefault()
-  if (document.visibilityState == "visible") {
+const run = async () => {
+  if (!document.hidden) {
     const muted: boolean = await storage.get("muted");
-    if (!muted) {
-      recognition = new SpeechRecognition();
-      recognition.start();
-    }
-  } else {
-    recognition.stop()
+    if (!muted) recognition.start();
   }
-});
+}
+run()
 
 recognition.onresult = (event: SpeechRecognitionEvent) => {
   const transcript: string = event.results[0][0].transcript;

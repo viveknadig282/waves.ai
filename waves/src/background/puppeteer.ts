@@ -26,7 +26,7 @@ const getChildRoute = (action: string, input: any) => {
         return { route: "/scroll/bottom", method: "POST", variables };
       } else if (a.relative) {
         variables["pixels"] = a.pixels;
-        return { route: "/scroll/to", method: "POST", variables };
+        return { route: "/scroll", method: "POST", variables };
       }
       break;
     case "TabAction":
