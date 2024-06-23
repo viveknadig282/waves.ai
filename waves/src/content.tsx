@@ -19,7 +19,7 @@ const cloudPort = getPort("cloud" as PortName);
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-recognition.continuous = false;
+recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
@@ -43,9 +43,7 @@ recognition.onend = async () => {
     if ( muted === true) {
       return;
     }
-    setTimeout(() => {
-        recognition.start();
-    }, 100);
+    // recognition.start();
 };
 
 recognition.start();
